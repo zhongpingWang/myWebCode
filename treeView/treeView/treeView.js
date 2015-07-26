@@ -8,6 +8,7 @@ var TreeView=function(opts){
 	defauts={
 		data:null,
 		appendTo:"body",
+		allBg:false,
 		//callback
 		select:null,
 		open:null,
@@ -31,7 +32,7 @@ $.extend(TreeView.prototype,{
 
 		settings.data.deep=1;
 		//生成html
-		$div.append(buildHtml(settings.data));
+		$div.append(buildHtml(settings.data,settings.allBg));
 		//添加
 		$(settings.appendTo).append($div);
 		//事件初始化
@@ -95,14 +96,20 @@ $.extend(TreeView.prototype,{
 
 
 //生成html
-function buildHtml(data){ 
+function buildHtml(data,allBg){ 
 
 	var str="",
 	 	tasks=data.tasks,count=tasks.length,master=data.deep==1,hidden=master?"":"Hidden";
 
 	if (count>0) { 
 		 
-		str+='<ul class="box '+hidden+'">';
+		 if (allBg) {
+		 	str+='<ul class="box '+hidden+'">';
+		 	
+		 }else{
+		 	str+='<ul class="box mLeft20 '+hidden+'">';
+		 }
+		
 
 		//底线
 		var borderBottomClass="";
@@ -123,23 +130,42 @@ function buildHtml(data){
 				}
 			};
 
-			str+='<li class="'+borderBottomClass+' '+borderLeft+'"><div class="header"> ';
+			var pLeft=(data.deep-1)*20;
+
+			if (allBg) {
+				str+='<li class="'+borderBottomClass+' "><div class="header" style="padding-left:'+pLeft+'px;"> ';
+				str+='<span class="'+borderLeft+'"></span>';
+			}else{
+				str+='<li class="'+borderBottomClass+' '+borderLeft+'"><div class="header"> ';
+			}
 
 			//最后一个 不加边框线
 			if (!master && i==last) {
 				str+='<span class="joinPrevLine" ></span>';
-			}; 
+			}; 																																			
 			
 
 			var subTasks=tasks[i].tasks; 
 
 			if (subTasks) {
 
+				pLeft=data.deep*20;
+
 				if (!master) {
-					str+='<span class="subJoinLine"></span>'
+					if (allBg) {
+						str+='<span class="subJoinLine" style="left:'+pLeft+'px;"></span>';
+					}else{
+						str+='<span class="subJoinLine"></span>';
+					}
 				};
 
-				str+='<span class="joinLine"></span><span class="nodeSwitch on"></span>';
+				if (allBg) {
+					str+='<span class="joinLine" style="left:'+pLeft+'px;"></span>';
+				}else{
+					str+='<span class="joinLine"></span>';
+				}
+
+				str+='<span class="nodeSwitch on"></span>';
 			}else{ 
 
 				if (master) {
@@ -155,8 +181,8 @@ function buildHtml(data){
 			str+='<span>'+tasks[i].TaskName+' </span> </div>';
 
 			if (subTasks) { 
-				data.deep+=1; 
-				str+=buildHtml(tasks[i]); 
+				tasks[i].deep=data.deep+1; 
+				str+=buildHtml(tasks[i],allBg); 
 			}; 
 
 			str+='</li>';

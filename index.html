@@ -2,50 +2,20 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
-	<script type="text/javascript" src="./jquery.js"></script>
-	<script type="text/javascript" src="./treeView/treeView.js"></script>
+	<title>Document</title>	
 	<link href="./css/index.css" rel="stylesheet" type="text/css">
-	<link href="./treeView/css/treeView.css" rel="stylesheet" type="text/css">
+	
 
 </head>
 <body>
 	 
 
-<div class="boderRadAll_5 boxShadow" id="test">
-</div>
+<a href="./treeView/index.html" target="_blank">treeView</a>
 
- <svg width="100%" height="100%" version="1.1"
-xmlns="http://www.w3.org/2000/svg">
+<a href="./svg/index.html" target="_blank">svg</a>
 
-<path d="" stroke="red" stroke-width="0.5" fill="none" id="path" />
+<a href="./css3Logo/index.html" target="_blank">css3 logo</a>
 
-</svg>
-
-<input type="text" id="input"/>
-
-<script type="text/javascript">
-	
- 
-
-
-
-var data={ 
-	tasks:[ {TaskName:"任务一",tasks:[{TaskName:"任务一一"},{TaskName:"任务一二",tasks:[{TaskName:"中评"}]}]  },{TaskName:"任务二"   }	]
-};
- 
- 
-
-$("#input").keyup(function(){
-
-	$("#path").attr("d",$(this).val());
-}); 
-
-
-$.treeView({data:data})
-  
-
-</script>
 
 </body>
 </html>

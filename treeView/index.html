@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../jquery/jquery.js"></script>
+	<script type="text/javascript" src="./treeView/treeView.js"></script> 
+	<link href="./treeView/css/treeView.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+	 
+
+
+
+<script type="text/javascript"> 
+
+
+var data={ 
+	tasks:[ {TaskName:"任务一",tasks:[{TaskName:"任务一一"},
+	{TaskName:"任务一二",tasks:[{TaskName:"中评",tasks:[{TaskName:"zhongping"  }]  }]}]  },
+
+	{TaskName:"任务二"   }	]
+}; 
+
+$.treeView({
+	data:data,
+	//open:function(){ alert("展开节点"); },
+	//close:function(){alert("关闭节点");},
+	//select:function(){alert("点击节点");}
+    allBg:true
+
+});
+  
+  $.treeView({
+	data:data,
+	//open:function(){ alert("展开节点"); },
+	//close:function(){alert("关闭节点");},
+	//select:function(){alert("点击节点");}
+    allBg:false
+
+});
+
+</script>
+
+</body>
+</html>
