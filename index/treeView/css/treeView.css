@@ -1,0 +1,31 @@
+html,body{margin:0;padding:0;}
+.Hidden{display: none;}
+.boderRadAll_5 {-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
+.boxShadow{box-shadow: 0 2px 8px rgba(0,0,0,.15);-moz-box-shadow: 0 2px 8px rgba(0,0,0,.15);-webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);}
+
+.navTasks ul{margin:0px;padding:0px;}
+.navTasks ul li{list-style-type:none;cursor:pointer; }
+.navTasks .box{margin-left: 20px;}
+.box .header{height:46px;line-height: 46px;position: relative;}
+.box li.borderBottom{border-bottom:1px #ccc solid;}
+.navTasks{width:300px;margin:50px;}
+.navTasks>.box{margin-left: 0px;}
+
+
+.nodeSwitch {vertical-align: top;display: inline-block;margin-top: 17px;cursor: pointer;width: 13px;height: 14px;text-align: center;background: url(../images/slideUpDown.png) no-repeat 0 200px;background-size: 13px 55px;margin-right: 5px;}
+.nodeSwitch.on {background-position: 0 0;}
+.nodeSwitch.on:hover {background-position: 0 -14px;}
+.nodeSwitch.off {background-position: 0 -28px;}
+.nodeSwitch.off:hover {background-position: 0 -42px;}
+
+.navTasks > .box > li >.header >.nodeSwitch {margin-left: 14px;}
+
+.joinLine {position: absolute;height: 25px;border-left: 1px #cfcfcf solid;top: 31px;left: 20px;display: none;}
+.borderLeft{border-left:1px #ccc solid;}
+.joinPrevLine {position: absolute;height: 24px;border-left: 1px #cfcfcf solid;top: -1px;left: 0;}
+.subJoinLine {display: inline-block;width: 15px;border-top: 1px #cfcfcf solid;height: 12px;vertical-align: top;margin-top: 23px;}
+.nodeCircleSmall {  vertical-align: top;display: inline-block;width: 6px;height: 6px;border: 1px solid #cfcfcf;margin-top: 19px;  margin-right: 5px;background-color: #f8f8f8;}
+.circle {border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;overflow: hidden;}
+.subJoinLineBefore + .subJoinLine{width:17px;}
+.hovered{   background-color: #f4f5f7; }
+.selected{  background-color: #5f6875;}
