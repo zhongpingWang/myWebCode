@@ -1,1 +1,728 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>reactjs文档</title>
+	<script type="text/javascript" src="../jquery/jquery.js"></script>
+	<style type="text/css">
+		code{background-color: #eee;border:1px solid #ccc;display: block;}
+	</style>
+</head>
+<body>
+
+<h1>编写reactjs</h1>
+
+<pre>
+
+<ul>
+<li><pre>
+注意：因为reactjs用了JSX语法，所以要引用JSX的解析器，或者运行解析过的JSX代码
+解析方式：npm install -g react-tools
+        jsx --watch src/ build/
+<pre>
+</li>
+
+http://reactjs.cn/react/docs/more-about-refs.html
+<li><pre>基础
+
+<code>
+<div id="example"></div>
+
+<script type="text/jsx">
+  React.render(
+    <h1>Hello, world!</h1>,
+    document.getElementById('example')
+  );
+</script>
+</code>
+</pre>
+</li>
+
+
+<li><pre>定义组件
+<code> 
+<div id="example"></div>
+
+<script type="text/jsx">
+var HelloWord=React.createClass({   
+  render:function(){ 
+    return (<div>HelloWord!</div>);
+  } 
+});
+ React.render(<HelloWord/>,$("#example")[0]);
+</script>
+</code>
+</pre>
+</li>
+
+<li><pre>定义子组件(子组件貌似要在div中)
+<code> 
+<div id="example"></div>
+
+<script type="text/jsx">
+var Hello=React.createClass({   
+  render:function(){ 
+    return (<div>Hello!</div>);
+  } 
+});
+
+
+var HelloWord=React.createClass({   
+  render:function(){ 
+    return ( <div><Hello/> HelloWord!</div>);
+  } 
+});
+ React.render(<HelloWord/>,$("#example")[0]);
+</script>
+</code>
+</pre>
+</li>
+
+<li><pre>定义子组件传值
+<code> 
+<div id="example"></div>
+
+<script type="text/jsx"> 
+var Hello=React.createClass({   
+  render:function(){ 
+    return (<div>Hello {this.props.name}!</div>);
+  } 
+});
+
+
+var HelloWord=React.createClass({   
+  render:function(){ 
+    return ( <div><Hello name={this.props.name}/> HelloWord {this.props.name}! </div>);
+  }  
+});
+ React.render(<HelloWord name="zp" />,$("#example")[0]);
+</script>
+</code>
+</pre>
+</li>
+
+
+<li><pre>数据绑定实例一（需引用showdown.min.js）
+<code> 
+<div id="example"></div>
+
+<script type="text/jsx"> 
+var data=[
+  	{"author": "Pete Hunt", "text": "This is one comment"},
+  	{"author": "Jordan Walke", "text": "This is *another* comment"}
+];
+
+var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: data};
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+       
+      </div>
+    );
+  }
+});
+
+
+var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function (comment) {
+      return (
+        <Comment author={comment.author}>
+          {comment.text}
+        </Comment>
+      );
+    });
+    return (
+      <div className="commentList">
+        {commentNodes}
+      </div>
+    );
+  }
+});
+
+var converter = new Showdown.converter();
+var Comment = React.createClass({
+  render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString());
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    );
+  }
+});
+
+
+React.render(
+<CommentBox />,document.getElementById('example')
+);
+
+</script>
+</code>
+</pre>
+</li>
+
+
+<li><pre>数据绑定片段一
+<code> 
+<div id="example"></div>
+
+<script type="text/jsx"> 
+
+//片段一 数据绑定
+var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm />
+      </div>
+    );
+  }
+});
+
+
+//片段二 可制作轮询
+var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm />
+      </div>
+    );
+  }
+});
+
+React.render(
+  <CommentBox url="comments.json" pollInterval={2000} />,
+  document.getElementById('content')
+);
+
+
+
+//片段三  回调函数更新数据
+var CommentForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var author = this.refs.author.getDOMNode().value.trim();
+    var text = this.refs.text.getDOMNode().value.trim();
+    if (!text || !author) {
+      return;
+    }
+    this.props.onCommentSubmit({author: author, text: text});
+    this.refs.author.getDOMNode().value = '';
+    this.refs.text.getDOMNode().value = '';
+    return;
+  },
+  render: function() {
+    return (
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Your name" ref="author" />
+        <input type="text" placeholder="Say something..." ref="text" />
+        <input type="submit" value="Post" />
+      </form>
+    );
+  }
+});
+
+var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleCommentSubmit: function(comment) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+      </div>
+    );
+  }
+});
+
+
+
+// 数据绑定片段 优化
+var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleCommentSubmit: function(comment) {
+    var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+      </div>
+    );
+  }
+});
+
+</script>
+</code>
+</pre>
+</li>
+
+
+
+
+
+
+</ul>
+
+
+</pre>
+
+	
+<h1>属性赋值的几种方式</h1>
+<pre>
+<ul>
+<li>var instance= React.render(<HelloWord name="beck" />,$("#example")[0]);</li>
+<li>var instance= React.render(<HelloWord name="{beck}" />,$("#example")[0]);</li>
+<li>var instance= React.render(<HelloWord name="{[1,2,3,4]}" />,$("#example")[0]);</li>
+<li>var props={one:"first",two:"secend"}</li>
+<li>var instance= React.render(<HelloWord  {...props}" />,$("#example")[0]);</li>
+</ul>
+</pre>
+
+<h1>改变属性</h1>
+<pre>
+<ul>
+<li>var instance= React.render(<HelloWord name="beck"   sub={props}></HelloWord>,$("#example")[0]);</li>
+<li>instance.setProps({name:3});</li>
+<li>props.two=4</li>
+<li>instance.setProps({sub:props});</li>
+</ul>
+</pre>
+
+
+<h1>转义</h1>
+<pre>
+如果想在 JSX 表达式中显示 HTML 实体，可以会遇到二次转义的问题，因为 React 默认会转义所有字符串，为了防止各种 XSS 攻击。
+
+// 错误: 会显示 “First &middot; Second”
+<div>{'First &middot; Second'}</div>
+
+有多种绕过的方法。最简单的是直接用 Unicode 字符。这时要确保文件是 UTF-8 编码且网页也指定为 UTF-8 编码。
+
+<div>{'First · Second'}</div>
+
+安全的做法是先找到 实体的 Unicode 编号 ，然后在 JavaScript 字符串里使用。
+
+<div>{'First \u00b7 Second'}</div>
+<div>{'First ' + String.fromCharCode(183) + ' Second'}</div>
+
+可以在数组里混合使用字符串和 JSX 元素。
+
+<div>{['First ', <span>&middot;</span>, ' Second']}</div>
+
+万不得已，可以直接使用原始 HTML。
+
+<div dangerouslySetInnerHTML={{__html: 'First &middot; Second'}} />
+
+如果往原生 HTML 元素里传入 HTML 规范里不存在的属性，React 不会显示它们。如果需要使用自定义属性，要加 data- 前缀。
+
+<div data-custom-attribute="foo" />
+
+以 aria- 开头的 [网络无障碍] 属性可以正常使用。
+
+<div aria-hidden={true} />
+
+
+</pre>
+
+
+<<h1>State</h1>
+
+<pre>
+哪些 应该 作为 State？
+
+State 应该包括那些可能被组件的事件处理器改变并触发用户界面更新的数据。 真实的应用中这种数据一般都很小且能被 JSON
+序列化。当创建一个状态化的组件时，想象一下表示它的状态最少需要哪些数据，
+并只把这些数据存入 this.state。在 render() 里再根据 state 来计算你需要的其它数据。你会发现以这种方式思考和开发程序最终往往是正确的，
+因为如果在 state 里添加冗余数据或计算所得数据，需要你经常手动保持数据同步，
+不能让 React 来帮你处理。
+
+哪些 不应该 作为 State？
+
+this.state 应该仅包括能表示用户界面状态所需的最少数据。因此，它不应该包括：
+计算所得数据： 不要担心根据 state 来预先计算数据 —— 把所有的计算都放到 render() 
+里更容易保证用户界面和数据的一致性。例如，在 state
+里有一个数组（listItems），我们要把数组长度渲染成字符串， 
+直接在 render() 里使用 this.state.listItems.length + ' list items' 
+比把它放到 state 里好的多。
+React 组件： 在 render() 里使用当前 props 和 state 来创建它。
+基于 props 的重复数据： 尽可能使用 props 来作为惟一数据来源。
+把 props 保存到 state 的一个有效的场景是需要知道它以前值的时候，
+因为未来的 props 可能会变化。
+
+
+</pre>
+
+<h1>Prop</h1>
+
+<pre>
+React.createClass({
+  propTypes: {
+    // 可以声明 prop 为指定的 JS 基本类型。默认
+    // 情况下，这些 prop 都是可传可不传的。
+    optionalArray: React.PropTypes.array,
+    optionalBool: React.PropTypes.bool,
+    optionalFunc: React.PropTypes.func,
+    optionalNumber: React.PropTypes.number,
+    optionalObject: React.PropTypes.object,
+    optionalString: React.PropTypes.string,
+
+    // 所有可以被渲染的对象：数字，
+    // 字符串，DOM 元素或包含这些类型的数组。
+    optionalNode: React.PropTypes.node,
+
+    // React 元素
+    optionalElement: React.PropTypes.element,
+
+    // 用 JS 的 instanceof 操作符声明 prop 为类的实例。
+    optionalMessage: React.PropTypes.instanceOf(Message),
+
+    // 用 enum 来限制 prop 只接受指定的值。
+    optionalEnum: React.PropTypes.oneOf(['News', 'Photos']),
+
+    // 指定的多个对象类型中的一个
+    optionalUnion: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+      React.PropTypes.instanceOf(Message)
+    ]),
+
+    // 指定类型组成的数组
+    optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
+
+    // 指定类型的属性构成的对象
+    optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
+
+    // 特定形状参数的对象
+    optionalObjectWithShape: React.PropTypes.shape({
+      color: React.PropTypes.string,
+      fontSize: React.PropTypes.number
+    }),
+
+    // 以后任意类型加上 `isRequired` 来使 prop 不可空。
+    requiredFunc: React.PropTypes.func.isRequired,
+
+    // 不可空的任意类型
+    requiredAny: React.PropTypes.any.isRequired,
+
+    // 自定义验证器。如果验证失败需要返回一个 Error 对象。不要直接
+    // 使用 `console.warn` 或抛异常，因为这样 `oneOfType` 会失效。
+    customProp: function(props, propName, componentName) {
+      if (!/matchme/.test(props[propName])) {
+        return new Error('Validation failed!');
+      }
+    }
+  },
+  /* ... */
+});
+
+
+
+
+var MyComponent = React.createClass({
+  propTypes: {
+    children: React.PropTypes.element.isRequired
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.props.children} // 有且仅有一个元素，否则会抛异常。
+      </div>
+    );
+  }
+
+});
+
+
+
+
+
+var SetIntervalMixin = {
+  componentWillMount: function() {
+    this.intervals = [];
+  },
+  setInterval: function() {
+    this.intervals.push(setInterval.apply(null, arguments));
+  },
+  componentWillUnmount: function() {
+    this.intervals.map(clearInterval);
+  }
+};
+
+var TickTock = React.createClass({
+  mixins: [SetIntervalMixin], // 引用 mixin
+  getInitialState: function() {
+    return {seconds: 0};
+  },
+  componentDidMount: function() {
+    this.setInterval(this.tick, 1000); // 调用 mixin 的方法
+  },
+  tick: function() {
+    this.setState({seconds: this.state.seconds + 1});
+  },
+  render: function() {
+    return (
+      <p>
+        React has been running for {this.state.seconds} seconds.
+      </p>
+    );
+  }
+});
+
+React.render(
+  <TickTock />,
+  document.getElementById('example')
+);
+
+
+
+var FancyCheckbox = React.createClass({
+  render: function() {
+    var { checked, ...other } = this.props;
+    var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
+    // `other` 包含 { onClick: console.log } 但 checked 属性除外
+    return (
+      <div {...other} className={fancyClass} />
+    );
+  }
+});
+React.render(
+  <FancyCheckbox checked={true} onClick={console.log.bind(console)}>
+    Hello world!
+  </FancyCheckbox>,
+  document.body
+);
+
+
+
+var MyComponent = React.createClass({
+  handleClick: function() {
+    // Explicitly focus the text input using the raw DOM API.
+    this.refs.myTextInput.getDOMNode().focus();
+  },
+  render: function() {
+    // The ref attribute adds a reference to the component to
+    // this.refs when the component is mounted.
+    return (
+      <div>
+        <input type="text" ref="myTextInput" />
+        <input
+          type="button"
+          value="Focus the text input"
+          onClick={this.handleClick}
+        />
+      </div>
+    );
+  }
+});
+
+React.render(
+  <MyComponent />,
+  document.getElementById('example')
+);
+
+</pre>
+
+<<h1>事件</h1>
+
+<pre>
+
+挂载
+
+getInitialState(): object在组件被挂载之前调用。状态化的组件应该实现这个方法，返回初始的state数据。
+
+componentWillMount()在挂载发生之前立即被调用。
+
+componentDidMount()在挂载结束之后马上被调用。需要DOM节点的初始化操作应该放在这里。
+
+
+更新
+
+componentWillReceiveProps(object nextProps)当一个挂载的组件接收到新的props的时候被调用。该方法应该用于比较this.props和nextProps，
+然后使用this.setState()来改变state。
+
+shouldComponentUpdate(object nextProps, object nextState): boolean当组件做出是否要更新DOM的决定的时候被调用。实现该函数，优化this.props和nextProps，
+以及this.state和nextState的比较，如果不需要React更新DOM，则返回false。
+
+componentWillUpdate(object nextProps, object nextState)在更新发生之前被调用。
+你可以在这里调用this.setState()。
+
+componentDidUpdate(object prevProps, object prevState)在更新发生之后调用。
+
+
+移除
+
+componentWillUnmount()在组件移除和销毁之前被调用。清理工作应该放在这里。
+
+挂载的方法（Mounted Methods）
+
+挂载的复合组件也支持如下方法：
+
+getDOMNode():
+DOMElement可以在任何挂载的组件上面调用，用于获取一个指向它的渲染DOM节点的引用。
+
+forceUpdate()
+当你知道一些很深的组件state已经改变了的时候，可以在该组件上面调用，
+而不是使用this.setState()。
+
+
+</pre>
+
+
+<<h1>支持低版本浏览器的兼容代码</h1>
+
+<pre>
+支持低版本浏览器的兼容代码
+
+kriskowal的es5-shim es5-shim.js 提供了以下react需要的api：
+
+    Array.isArray
+    Array.prototype.every
+    Array.prototype.forEach
+    Array.prototype.indexOf
+    Array.prototype.map
+    Date.now
+    Function.prototype.bind
+    Object.keys
+    String.prototype.split
+    String.prototype.trim
+
+kriskowal的es5-shim es5-sham.js 同样提供了以下react需要的api：
+
+    Object.create
+    Object.freeze
+
+The unminified build of React needs the following from paulmillr's console-polyfill.
+
+    console.*
+
+When using HTML5 elements in IE8 including <section>, <article>, <nav>, <header>,
+ and <footer>, it's also necessary to include html5shiv or a similar script.
+
+</pre>
+
+
+<script type="text/javascript">
+	//显示代码
+	$("code").each(function(){
+		$(this).text($(this).html());
+	});
+	
+</script>
+</body>
+</html>
