@@ -111,7 +111,7 @@ var ZpLove=React.createClass({
 
     $(".zpLove li.Hidden").slideDown();
     //当前节点
-    $(React.findDOMNode(this)).append("Hi");
+    //$(React.findDOMNode(this)).append("Hi");
   },
 
 
@@ -130,17 +130,20 @@ var ZpLove=React.createClass({
   //组件是否需要更新
   componentWillUpdate:function(nextProps,nextState){
 
-    
-      $("li").slideUp(); 
+      requestAnimationFrame(function(){
+         $("li").fadeOut(); 
+      });
+     
 
   },
 
   //render:
   //更新后调用
   componentDidUpdate:function(prevProps,prevState){
+    requestAnimationFrame(function(){
       $(".zpLove li.Hidden").slideDown();
-      console.log(prevProps);
-      console.log(prevState);
+    }); 
+      
   },
 
 
