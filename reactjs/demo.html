@@ -4,17 +4,161 @@
 	<meta charset="UTF-8">
 	<title>reactjs demo</title>
 	<script type="text/javascript" src="../jquery/jquery.js"></script>
-	<script type="text/javascript" src="./js/react.js"></script>
+    <script type="text/javascript" src="./js/react.js"></script>
+	<script type="text/javascript" src="./js/react-with-addons.js"></script>
 	<script type="text/javascript" src="./js/JSXTransformer.js"></script>
+
+<style type="text/css">
+  
+.example4-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example4-enter.example4-enter-active {
+  opacity: 1;
+}
+
+.example4-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example4-leave.example4-leave-active {
+  opacity: 0.01;
+
+}
+
+
+.example3-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example3-enter.example3-enter-active {
+  opacity: 1;
+}
+
+.example3-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example3-leave.example3-leave-active {
+  opacity: 0.01;
+
+}
+
+.Hidden{display: none;}
+</style>
+
 </head>
 <body>
+
+<div id="zp" ></div>
+
 	<div id="example"></div>
     <div id="example2"></div>
        <div id="example3"></div>
+       <div id="example4"></div>
+
+       <div id="test2"></div>
 
 <script type="text/jsx">
 
 
+var ZpLove=React.createClass({
+ 
+  //初始化事件
+
+  //初始化属性 第一个组件 被调用
+  getDefaultProps:function(){
+
+  },
+
+  //初始化状态
+  getInitialState:function(){
+    return { names:this.props.names} 
+  },
+  //即将渲染到页面
+  componentWillMount:function(){
+
+
+  },
+  //开始渲染
+  render:function(){
+
+    var li;
+    if ( this.state.names &&  this.state.names.length>0) {
+
+      li= this.state.names.map(function(name){
+      return ( <li data-id={name.id} className="Hidden">{name.text}</li> );
+
+    }); 
+
+
+    }else{
+      li= (<div>空</div>);
+    }
+   
+
+    return ( <ul className="zpLove">{li}</ul> );
+
+  },
+
+  //渲染结束
+  componentDidMount:function(){
+
+    $(".zpLove li.Hidden").slideDown();
+    //当前节点
+    $(React.findDOMNode(this)).append("Hi");
+  },
+
+
+  //运行中事件
+  //
+  //将要接受到 属性时触发
+  componentWillReceiveProps:function(){
+
+  },
+
+  //当组件 接受到新状态是 触发
+  shouldComponentUpdate:function(){
+      return true;
+  },
+
+  //组件是否需要更新
+  componentWillUpdate:function(nextProps,nextState){
+
+    
+      $("li").slideUp(); 
+
+  },
+
+  //render:
+  //更新后调用
+  componentDidUpdate:function(prevProps,prevState){
+      $(".zpLove li.Hidden").slideDown();
+      console.log(prevProps);
+      console.log(prevState);
+  },
+
+
+  //销毁
+  //
+  //销毁之前
+  componentWillUnmount:function(){
+
+
+  } 
+
+  });
+
+var names=[{id:1,text:1},{id:2,text:2}];
+var zp=React.render(<ZpLove names={names}/>,document.getElementById("zp"));
+
+
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var LikeButton=React.createClass({
 
@@ -121,7 +265,10 @@ var MyTask=React.createClass({
 
     return (   
       <div><ul>  
+        <ReactCSSTransitionGroup transitionName="example3">
          {Nodes }
+        </ReactCSSTransitionGroup>
+         
       </ul></div>
     ); 
   } 
@@ -131,16 +278,92 @@ var MyTask=React.createClass({
 
 React.render(<LikeButton/>,document.getElementById("example"));	
  
- React.render(<Avatar username="pwh">test</Avatar>,document.getElementById("example2"));
+React.render(<Avatar username="pwh">test</Avatar>,document.getElementById("example2"));
 
 var tasks=[
       { id:1,data:{text:"任务一"}  },
        { id:2,data:{text:"任务二"}  },
       ]; 
 
-var myTask= React.render( <MyTask results={tasks} />,document.getElementById("example3") );
+var myTask= React.render( <MyTask results={tasks} />,document.getElementById("example3"),function(){
+  console.log(3); 
+} );
 
  
+
+var TodoList = React.createClass({
+  getInitialState: function() {
+    return {items: ['hello', 'world', 'click', 'me']};
+  },
+  handleAdd: function() {
+    var newItems =
+      this.state.items.concat([prompt('Enter some text')]);
+    this.setState({items: newItems});
+  },
+  handleRemove: function(i) {
+    var newItems = this.state.items;
+    newItems.splice(i, 1);
+    this.setState({items: newItems});
+  },
+  render: function() {
+    var items = this.state.items.map(function(item, i) {
+      return (
+        <div key={item} onClick={this.handleRemove.bind(this, i)}>
+          {item}
+        </div>
+      );
+    }.bind(this));
+    return (
+      <div>
+        <button onClick={this.handleAdd}>Add Item</button>
+        <ReactCSSTransitionGroup transitionName="example4">
+          {items}
+        </ReactCSSTransitionGroup>
+      </div>
+    );
+  }
+});
+
+React.render(<TodoList/>,document.getElementById("example4"));
+
+
+
+
+var UserGist = React.createClass({
+  getInitialState: function() {
+    return {
+      username: '',
+      lastGistUrl: ''
+    };
+  },
+
+  componentDidMount: function() {
+    $.get(this.props.source, function(result) {
+      var lastGist = result[0];
+      if (this.isMounted()) {
+        this.setState({
+          username: lastGist.owner.login,
+          lastGistUrl: lastGist.html_url
+        });
+      }
+    }.bind(this));
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.state.username}'s last gist is
+        <a href={this.state.lastGistUrl}>here</a>.
+      </div>
+    );
+  }
+});
+
+React.render(
+  <UserGist source="https://api.github.com/users/octocat/gists" />,document.getElementById("test2"));
+
+
+
 </script>
 
 </body>
