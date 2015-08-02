@@ -9,33 +9,138 @@
 </head>
 <body>
 	<div id="example"></div>
+    <div id="example2"></div>
+       <div id="example3"></div>
 
 <script type="text/jsx">
-	
-var LikeButton = React.createClass({
-  getInitialState: function() {
-    return {liked: false};
-  },
-  handleClick: function(event) {
-    this.setState({liked: !this.state.liked});
-  },
-  render: function() {
-    var text = this.state.liked ? 'like' : 'haven\'t liked';
-    return (
-      <p onClick={this.handleClick}>
-        You {text} this. Click to toggle.
-      </p>
-    );
-  }
+
+
+
+var LikeButton=React.createClass({
+
+    getInitialState:function(){
+      return { liked:false };
+    },
+    handleClick:function(event){ 
+      this.setState({liked:!this.state.liked});
+    },
+    render:function(){
+
+        var text=this.state.liked?'liked':'not liked';
+        return (
+          <p onClick={this.handleClick}>
+              you {text} this, Click to toggle
+          </p>
+          ); 
+    }
+
+
 });
 
-React.render(
-  <LikeButton />,
-  document.getElementById('example')
-);
+
+var  Avatar=React.createClass({
+
+  render:function(){
+    return( 
+      <div> 
+
+      <ProfilePic username={this.props.username} />
+      <ProfileLink username={this.props.username} />
+
+      </div> 
+    );
+
+  } 
+});
+
+
+var ProfilePic=React.createClass({
+
+  render:function(){
+
+    return ( 
+      <img src={'http://graph.facebook.com/' + this.props.username + '/picture'} /> 
+      ); 
+  } 
+});
+
+var ProfileLink=React.createClass({
+
+    render:function(){
+
+      return (
+
+        <a href={'http://www.facebook.com/' + this.props.username}>
+            {this.props.username}
+        </a> 
+
+      );
+
+    } 
+});
 
 
 
+var ListItem=React.createClass({ 
+  render:function(){  
+    return (  
+      <li>{this.props.data.text}</li>); 
+  } 
+});
+
+
+var MyTask=React.createClass({ 
+
+  getInitialState:function(){
+   
+    return {results:this.props.results};
+
+  },
+ 
+
+  render:function(){ 
+
+    var Nodes;
+
+    // if ( this.state.results && this.state.results.length) {
+    //     Nodes=this.state.results.map(function(result){ 
+    //           return (<ListItem key={result.id} data={result.data} />);
+    //     });
+    // }else{
+    //     Nodes= (<div>无数据</div>);
+    // } 
+      
+
+    if (this.state.results && this.state.results.length) {
+        Nodes=this.state.results.map(function(result){
+            return ( <ListItem key={result.id} data={result.data} /> );
+        });
+    }else{
+      Nodes= (<div>无数据</div>);
+    }
+
+    return (   
+      <div><ul>  
+         {Nodes }
+      </ul></div>
+    ); 
+  } 
+});
+
+
+
+React.render(<LikeButton/>,document.getElementById("example"));	
+ 
+ React.render(<Avatar username="pwh">test</Avatar>,document.getElementById("example2"));
+
+var tasks=[
+      { id:1,data:{text:"任务一"}  },
+       { id:2,data:{text:"任务二"}  },
+      ]; 
+
+var myTask= React.render( <MyTask results={tasks} />,document.getElementById("example3") );
+
+ 
 </script>
 
 </body>

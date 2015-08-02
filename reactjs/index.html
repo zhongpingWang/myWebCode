@@ -717,6 +717,26 @@ When using HTML5 elements in IE8 including <section>, <article>, <nav>, <header>
 </pre>
 
 
+<pre>
+
+var MyComponent = React.createClass({
+  propTypes: {
+    children: React.PropTypes.element.isRequired
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.props.children} // 有且仅有一个元素，否则会抛异常。
+      </div>
+    );
+  }
+
+});
+
+</pre>
+
+
 <script type="text/javascript">
 	//显示代码
 	$("code").each(function(){
