@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>api baidu</title>
+		<script type="text/javascript" src="../jquery/jquery.js"></script>
+    <script type="text/javascript" src="./js/react.js"></script>
+	<script type="text/javascript" src="./js/react-with-addons.js"></script>
+	<script type="text/javascript" src="./js/JSXTransformer.js"></script>
+</head>
+<body>
+	
+
+  
+<script type="text/javascript"> 
+//http://www.juhe.cn/my/i 
+
+$.ajax({ 
+	url:"http://apis.juhe.cn/cook/category",
+	type:"GET",
+	dataType:"jsonp",
+	data:{
+		key:"43896054cbf8a1be64951640a4ea059f"  
+	}
+}).done(function(data){
+
+	console.log(data);
+});
+
+
+var CookBook=React.createClass({
+
+
+
+
+
+	render:function(){
+
+
+
+	}
+
+
+
+});
+
+
+
+ 
+	
+ 
+</script>
+
+</body>
+</html>
