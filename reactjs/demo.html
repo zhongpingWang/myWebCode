@@ -123,16 +123,18 @@ var ZpLove=React.createClass({
   },
 
   //当组件 接受到新状态是 触发
-  shouldComponentUpdate:function(){
+  shouldComponentUpdate:function( nextProps,nextState){
+    console.log(nextState);
+    console.log(this.state);
       return true;
   },
 
   //组件是否需要更新
   componentWillUpdate:function(nextProps,nextState){
 
-      requestAnimationFrame(function(){
-         $("li").fadeOut(); 
-      });
+      // requestAnimationFrame(function(){
+      //    $("li").fadeOut(); 
+      // });
      
 
   },
@@ -151,9 +153,10 @@ var ZpLove=React.createClass({
   //
   //销毁之前
   componentWillUnmount:function(){
-
+          console.log(39);
 
   } 
+
 
   });
 
@@ -307,6 +310,8 @@ var TodoList = React.createClass({
     var newItems = this.state.items;
     newItems.splice(i, 1);
     this.setState({items: newItems});
+    $(event.target).addClass('removeItem')
+     
   },
   render: function() {
     var items = this.state.items.map(function(item, i) {
@@ -324,7 +329,23 @@ var TodoList = React.createClass({
         </ReactCSSTransitionGroup>
       </div>
     );
-  }
+  },
+  componentWillUnmount:function(){
+      console.log(39); 
+  } ,
+
+  //将要更新
+  componentWillUpdate:function(nextProps,nextState){ 
+
+      $(".removeItem").slideUp();
+      // requestAnimationFrame(function(){
+      //    $("li").fadeOut(); 
+      // }); 
+  },
+  
+
+
+
 });
 
 React.render(<TodoList/>,document.getElementById("example4"));
@@ -355,11 +376,30 @@ var UserGist = React.createClass({
   render: function() {
     return (
       <div>
-        {this.state.username}'s last gist is
+        {this.state.username} last gist is
         <a href={this.state.lastGistUrl}>here</a>.
       </div>
     );
-  }
+  },
+
+  componentWillUnmount:function(){
+      console.log(39); 
+  } ,
+  componentWillUpdate:function(nextProps,nextState){
+
+    console.log(10);
+      // requestAnimationFrame(function(){
+      //    $("li").fadeOut(); 
+      // });
+     
+
+  },
+//当组件 接受到新状态是 触发
+  shouldComponentUpdate:function(){
+    console.log(100);
+      return false;
+  },
+
 });
 
 React.render(
