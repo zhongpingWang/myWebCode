@@ -4,18 +4,58 @@
 	<meta charset="UTF-8">
 	<title>海风再吹</title>	
 	<link href="./css/index.css" rel="stylesheet" type="text/css">
-	
-
+	<script type="text/javascript" src="./js/index.js"></script> 
+	<script type="text/javascript" src="./jquery/jquery.js"></script> 
 </head>
 <body>
 	 
 
-<a href="./treeView/index.html" target="_blank">treeView</a>
+<div id="siteMain"> 
+		<input id="opacity" type="range" min="0" max="100" defaultValue="45" title="透明" /> 
 
-<a href="./svg/index.html" target="_blank">svg</a>
+	<div class="box">
+		
+		<div class="panes">
 
-<a href="./css3Logo/index.html" target="_blank">css3 logo</a>
+			<div class="pane first">
+				<a href="./treeView/index.html" target="_blank"> 
+					<img class="themImg" src="./images/treeView.png" /> 
+					<span class="text">treeView</span>
+				</a> 
+			</div>
 
+			<div class="pane">
+
+				<a href="././svg/index.html" target="_blank"> 
+					<img class="themImg" src="./images/svg.png" /> 
+					<span class="text">treeView</span>
+				</a>  
+
+			</div>
+
+			<div class="pane">
+				 
+				<a href="./css3Logo/index.html" target="_blank"> 
+					<img class="themImg" src="./images/css3Logo.png" /> 
+					<span class="text">treeView</span>
+				</a>  
+			</div> 
+			
+
+		</div> 
+
+	<div id="bg"></div>
+	</div> 
+
+<div id="slideBar"></div>
+
+</div> 
+ 
+
+<script type="text/javascript">
+	Index.autoBg(); 
+	Index.initEvent();
+</script>
 
 </body>
 </html>
