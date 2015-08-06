@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>美食食谱</title>
 	<script type="text/javascript" src="../../jquery/jquery.js"></script>
-    <script type="text/javascript" src="../js/react.js"></script>
 	<script type="text/javascript" src="../js/react-with-addons.js"></script>
 	<script type="text/javascript" src="../js/JSXTransformer.js"></script>
 	<link href="./css/index.css" rel="stylesheet" />
@@ -21,34 +20,9 @@
 
 <script type="text/jsx">
 	React.render(<CookBook/>,document.getElementById("cookbook"));
-	React.render(<TestClick/>,document.body);
+	//React.render(<TestClick/>,document.body);
 </script>
 
-<script type="text/javascript">  
-
-	$("#cookbook").on({ 
-		click:function(){ 
-			var $ul=$(this).find(".cookBook");
-
-			if ($ul.is(":hidden")) {
-				$ul.slideDown();
-			}else{
-				$ul.slideUp();
-			}  
-		}
-		 
-	},"li.item");
- 
- $("#cookbook").on({
-
- 	click:function(event){
- 		event.stopPropagation();
- 	}
-
- },".cookBook li");
-
-
-</script>
 
 
 </body>

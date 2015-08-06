@@ -75,16 +75,27 @@ var CookBookHeader=React.createClass({
 		});
 	},
 
+
+	slideShow:function(){
+		alert(0);
+	},
 	render:function(){
 	 	
-	 	console.log(this.state);
+	 	console.log(this.slideShow);
 
 		var item;
 		if ( this.state.data && this.state.data.result && this.state.data.result.length>0 ) {
 
 			item=this.state.data.result.map(function(result){
-				return (<li className="item" data-parentId={result.parentId}><span className="cookCategory cookText">{result.name}</span><CookBookHeaderList list={result.list} /></li>);
-	        }); 
+				return (
+					   <li className="item x" onClick={this.slideShow} data-parent-id={result.parentId}>
+
+					   <span className="cookCategory cookText">{result.name}</span>
+
+					   <CookBookHeaderList list={result.list} />
+
+					   </li>);
+	        }.bind(this)); 
 
 		}else{
 			item=(<li>数据加载中……</li>);
@@ -105,7 +116,7 @@ var CookBookHeaderList=React.createClass({
 
 	//获取菜系详情
 	handleGetBookDetail:function(e){
-		e.preventDefault();
+		//e.preventDefault();
 
 		///  this.refs.author.getDOMNode().value = "";
 		///  
@@ -135,9 +146,12 @@ var CookBookHeaderList=React.createClass({
 
 var TestClick=React.createClass({
 
+	click:function(){
+		alert(0);
+	},
 	render:function(){
-
-		return (<div>abc</div>);
+		 var $div=(<div onClick={this.click}>abc</div>);
+		return (<div>{$div}</div>);
 
 	}
 
