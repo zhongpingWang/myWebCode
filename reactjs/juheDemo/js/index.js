@@ -76,13 +76,17 @@ var CookBookHeader=React.createClass({
 	},
 
 
-	slideShow:function(){
-		alert(0);
+	slideShow:function(event){
+		var $ul=$(event.target).parent().find("ul");
+
+		if ( $ul.is(":hidden")) {
+			$ul.slideDown();
+		}else{
+			$ul.slideUp();
+		}
 	},
 	render:function(){
 	 	
-	 	console.log(this.slideShow);
-
 		var item;
 		if ( this.state.data && this.state.data.result && this.state.data.result.length>0 ) {
 
@@ -115,13 +119,14 @@ var CookBookHeaderList=React.createClass({
 	},
 
 	//获取菜系详情
-	handleGetBookDetail:function(e){
-		//e.preventDefault();
+	searchCook:function(e){
+		
+		e.preventDefault();
 
-		///  this.refs.author.getDOMNode().value = "";
-		///  
-		var text=$(this).text();
-		console.log(text);
+		var id=$(event.target).parent().data("i-d");
+
+		console.log(id);
+
 	},
 
 	render:function(){ 
@@ -131,10 +136,10 @@ var CookBookHeaderList=React.createClass({
 		if (this.state.list && this.state.list.length>0) {
 
 			list=this.state.list.map(function(item){
-				return (<li className="subItem" data-parentId={item.parentId} >
-							<span  className="cookItem cookText" onClick={this.handleGetBookDetail} >{item.name}</span>
-						</li>);
-			});
+				return (<li onClick={this.searchCook} className="subItem" data-i-d={item.id} >
+							<span  className="cookItem cookText">{item.name}</span>
+						</li>); 
+			}.bind(this));
 		}else{
 			list=(<li>暂无数据</li>);
 		}  
