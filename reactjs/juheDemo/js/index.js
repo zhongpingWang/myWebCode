@@ -76,8 +76,9 @@ var CookBookHeader=React.createClass({
 	},
 
 
-	slideShow:function(){
-		alert(0);
+	slideShow:function(event){
+		var $li=$(event.target).parent(),$ul=$li.find("ul");
+		if ($ul.is(":ani")) {};
 	},
 	render:function(){
 	 	

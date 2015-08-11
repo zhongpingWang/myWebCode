@@ -1,0 +1,91 @@
+body {
+  border-top: 1px solid #ccc;
+  line-height: 1.5;
+  font-size: 12px;
+  padding: 10px;
+}
+
+a {
+  color: #08c;
+}
+
+a:hover {
+  color: #333;
+}
+
+h1, .speaker {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+.parent-2 {
+  color: #f00;
+}
+
+.child {
+  width: 200px;
+}
+
+.demo {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.opacity {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+.imgtext-h li {
+  border-bottom: 1px solid #ccc;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.imgtext-h--product li {
+  border-bottom: 1px dashed #ccc;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.box {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3), 0 3px 3px rgba(0, 0, 0, 0.3), 0 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 480px) {
+  body {
+    color: red;
+  }
+}
+
+h1, .speaker {
+  border: 4px solid #ff9aa9;
+}
+
+.speaker {
+  border-width: 2px;
+}
+
+.test {
+  width: 80%;
+}
+
+.test.t {
+  height: 30px;
+}
+
+.test + .s {
+  display: none;
+}
+
+.test ~ .p {
+  color: #fff;
+}
