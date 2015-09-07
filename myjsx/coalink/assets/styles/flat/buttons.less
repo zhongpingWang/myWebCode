@@ -1,0 +1,207 @@
+//
+// Buttons
+// --------------------------------------------------
+
+// Mixins
+//
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+.button-variant(@color; @background; @border; @activeColor; @activeBackground; @activeBorder) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+
+  &:focus,
+  &.focus {
+    color: @activeColor;
+    background-color: @activeBackground;
+    border-color: @activeBorder;
+  }
+  &:hover {
+    color: @activeColor;
+    background-color: @activeBackground;
+    border-color: @activeBorder;
+  }
+  // TODO: review: dropdown
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    color: @color;
+    background-color: darken(@background, 10%);
+    border-color: darken(@border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @color;
+      background-color: darken(@background, 17%);
+      border-color: darken(@border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: @background;
+      border-color: @border;
+    }
+  }
+
+  // TODO: Review badge
+  .badge {
+    color: @background;
+    background-color: @color;
+  }
+}
+// --------------------------------------------------
+// Button sizes
+.button-size(@font-size; @height; @border-radius) {
+  padding: 0;
+  font-size: @font-size;
+  line-height: @height;
+  height: @height;
+  border-radius: @border-radius;
+}
+
+// Base styles
+// --------------------------------------------------
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  font-weight: @btn-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  white-space: nowrap;
+  .button-size(@btn-font-size; @btn-height; @btn-border-radius);
+  .user-select(none);
+  .button-variant(
+    @btn-default-color, @btn-default-bg, @btn-default-border,
+    @btn-default-active-color, @btn-default-active-bg, @btn-default-active-border);
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      .tab-focus();
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: @btn-default-active-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: @cursor-disabled;
+    .opacity(.60);
+  }
+
+  a& {
+    &.disabled,
+    fieldset[disabled] & {
+      pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+    }
+  }
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-primary {
+    .button-variant(
+        @btn-primary-color, @btn-primary-bg, @btn-primary-border,
+        @btn-primary-active-color, @btn-primary-active-bg, @btn-primary-active-border);
+}
+// Info appears as blue-green
+.btn-info {
+    .button-variant(
+        @btn-info-color, @btn-info-bg, @btn-info-border,
+        @btn-info-active-color, @btn-info-active-bg, @btn-info-active-bg);
+}
+// Warning appears as orange
+.btn-warning {
+    .button-variant(
+        @btn-warning-color, @btn-warning-bg, @btn-warning-border,
+        @btn-warning-active-color, @btn-warning-active-bg, @btn-warning-active-bg);
+}
+// Danger and error appear as red
+.btn-danger {
+    .button-variant(
+        @btn-danger-color, @btn-danger-bg, @btn-danger-border,
+        @btn-danger-active-color, @btn-danger-active-bg, @btn-danger-active-bg);
+}
+
+
+// Link buttons
+// -------------------------
+// TODO: needed? copy from  bs
+
+// Make a button look and behave like a link
+.btn-link {
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-lg {
+  .button-size(@btn-font-size-lg; @btn-height-lg; @btn-border-radius);
+}
+.btn-sm {
+  .button-size(@btn-font-size-sm; @btn-height-sm; @btn-border-radius);
+}
+.btn-xs {
+}
+
+
+// Block button
+// --------------------------------------------------
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}

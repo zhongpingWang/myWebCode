@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coalink</title>
+      {{ stylesheet_tag('base') | safe }}
+      {{ stylesheet_tag('maincss') | safe }}
+  </head>
+  <body>
+
+    <header class="headerBox with-video">
+      <video muted autoplay loop preload="auto" oncontextmenu="return false"
+        poster="{{ asset_url_for('pages/main/images/banner.jpg') | safe }}">
+        <source src="{{ asset_url_for('pages/main/video/banner.mp4') | safe }}" type="video/mp4">
+      </video>
+
+      <nav class="topBarBox">
+        <ul class="topBar">
+          <li class="logo left">Coalink</li>
+
+          <li class="right myRelease pointer">发布我的需求</li>
+          <li class="right colorWhite help mTop pointer">帮助<i class="arrorwDown"></i></li>
+          <li class="right colorWhite signIn pointer">登录</li>
+          <li class="right colorWhite mTop register pointer">注册</li>
+
+        </ul>
+      </nav>
+
+        <div class="numberTransactions">
+            <label class="tipText">已完成交易数</label>
+            <span class="sunNumber"><label class="number">220,</label><label class="number">520,</label>
+            <label class="number">333</label></span>
+            <label class="unit">吨</label>
+        </div>
+
+      <div id='searchBox'>
+
+      </div>
+
+    </header>
+
+    <div class="newNotice">
+      <span class="msgText"> <label>最新动态：Coalink业内首创微信下单，随时随地完成交易</label>
+           <a href="#">更多…</a></span>
+    </div>
+
+    <div class="menuBox">
+        <ul class="menu">
+            <li class="tradingHall"><i class="icon"></i>交易大厅</li>
+            <li class="marketChart"><i class="icon"></i>行情图表</li>
+            <li class="fundManagement"><i class="icon"></i>资金管理</li>
+            <li class="service"><i class="icon"></i>三方服务</li>
+        </ul>
+
+    </div>
+
+    <div class="aboutBox">
+        <h1>顶级的煤炭服务商</h1>
+        <h3 class="subtitle">我们拥有最真实的信息、最高效的匹配、最安全的机制、最贴心的服务</h3>
+
+        <ul class="aboutLink">
+            <li class="professional">
+                <a href="#"><i class="icon"></i></a>
+
+                    <div>10年煤炭交易数据信息</div>
+                    <div>3500家会员企业资质认证</div>
+                    <div>24000笔交易诚信认证</div>
+
+            </li>
+
+            <li class="efficient">
+                <a href="#"><i class="icon"></i></a>
+
+                    <div>专业级信息指标分类</div>
+                    <div>高效撮合机制</div>
+                    <div>个性需求1天定向招标</div>
+
+            </li>
+            <li class="safety">
+                <a href="#"><i class="icon"></i></a>
+                    <div>二十年金融安全经验的安全团队</div>
+                    <div>冷存储、SSL、多重加密</div>
+                    <div>GSLB与分布式集群技术</div>
+
+            </li>
+            <li class="security">
+                <a href="#"><i class="icon"></i></a>
+                    <div>专业的交易保障及服务评价</div>
+                    <div>贸易融资1天闪电审批</div>
+                    <div>质检、物流、仓储一条龙委托</div>
+
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="tradingHallBox">
+        <div class="descBox">
+            <h1>交易大厅</h1>
+            <h5 class="subtitle">交易大厅  真实信息、快速匹配、现货交易</h5>
+            <span class="btn">点击进入</span>
+        </div>
+    </div>
+
+    <div class="chat">
+        <div class="descBox">
+            <h1>行情图表</h1>
+            <h5 class="subtitle">行情图表  实时行情、历史数据、分析图表</h5>
+            <span class="btn">点击进入</span>
+        </div>
+    </div>
+
+    <div class="fundManagementBig">
+        <div class="descBox">
+            <h1>资金管理</h1>
+            <h5 class="subtitle">资金管理  贸易贷款1天闪电审批</h5>
+            <span class="btn">点击进入</span>
+        </div>
+    </div>
+
+    <div class="servicesBig">
+        <div class="descBox">
+            <h1>三方服务</h1>
+            <h5 class="subtitle">三方服务  权威质检、快速物流、便捷仓储</h5>
+            <span class="btn">点击进入</span>
+        </div>
+    </div>
+
+
+
+    <footer class="footBox">
+        <ul class="footerlink">
+            <li>
+            <h4>关注库联</h4>
+            <div class="linkBox">
+             <a class="sina" href="#"></a>
+              <a class="webChat" href="#"></a>
+            </div>
+
+            </li>
+            <li>
+                <ul>
+                    <li> <h4>公司信息</h4> </li>
+                    <li> <a href="/about">关于库联</a> </li>
+                    <li> <a href="/us">团队介绍</a> </li>
+                    <li> <a href="/join">工作机会</a> </li>
+                    <li> <a href="/contact">联系我们</a> </li>
+
+                </ul>
+
+
+            </li>
+            <li>
+                <ul>
+                    <li> <h4>服务和帮助</h4> </li>
+                    <li> <a href="/faq">常见问题</a> </li>
+                    <li> <a href="#">如何交易</a> </li>
+                    <li> <a href="#">费率标准</a> </li>
+                    <li> <a href="#">投诉建议</a> </li>
+
+                </ul>
+
+            </li>
+            <li class="last">
+                <ul>
+                    <li> <h4>合作伙伴</h4> </li>
+                    <li> <a href="#">中国煤炭交易协会</a> </li>
+                    <li> <a href="#">中国地质大学</a> </li>
+                    <li> <a href="#">中信银行</a> </li>
+                    <li> <a href="#">摩根士丹利</a> </li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <div class="company">
+            <div class="companyContent">
+                <span class="float">客服电话：400-833-0688</span>
+                <span class="right">使用条款 | 隐私声明 Copyright 2015 Coalink</span>
+            </div>
+
+        </div>
+
+
+    </footer>
+    {{ javascript_tag('commons') | safe }}
+    {{ javascript_tag('main') | safe }}
+  </body>
+</html>

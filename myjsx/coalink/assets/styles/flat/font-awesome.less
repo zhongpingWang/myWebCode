@@ -1,0 +1,57 @@
+/*!
+ *  Font Awesome 4.4.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/*
+ * 调整path以支持webpack的编译
+ */
+
+@import "../../../../node_modules/font-awesome/less/variables.less";
+@import "../../../../node_modules/font-awesome/less/mixins.less";
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('@{fa-font-path}/fontawesome-webfont.eot'),
+    url('@{fa-font-path}/fontawesome-webfont.woff2') format('woff2'),
+    url('@{fa-font-path}/fontawesome-webfont.woff') format('woff'),
+    url('@{fa-font-path}/fontawesome-webfont.ttf') format('truetype'),
+    url('@{fa-font-path}/fontawesome-webfont.svg') format('svg');
+    //  src: url('@{fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Base Class Definition
+// -------------------------
+
+.@{fa-css-prefix} {
+    display: inline-block;
+    font: normal normal normal @fa-font-size-base/@fa-line-height-base FontAwesome; // shortening font declaration
+    font-size: inherit; // can't have font-size inherit on line above, so need to override
+    text-rendering: auto; // optimizelegibility throws things off #1094
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color:  @icon-color;
+}
+
+// Icon Sizes
+// -------------------------
+
+/* makes the font 33% larger relative to the icon container */
+.@{fa-css-prefix}-lg {
+    font-size: (4em / 3);
+}
+.@{fa-css-prefix}-2x { font-size: 2em; }
+.@{fa-css-prefix}-3x { font-size: 3em; }
+.@{fa-css-prefix}-4x { font-size: 4em; }
+.@{fa-css-prefix}-5x { font-size: 5em; }
+
+@import "../../../../node_modules/font-awesome/less/fixed-width.less";
+@import "../../../../node_modules/font-awesome/less/list.less";
+@import "../../../../node_modules/font-awesome/less/bordered-pulled.less";
+@import "../../../../node_modules/font-awesome/less/animated.less";
+@import "../../../../node_modules/font-awesome/less/rotated-flipped.less";
+@import "../../../../node_modules/font-awesome/less/stacked.less";
+@import "../../../../node_modules/font-awesome/less/icons.less";
+
+@fa-font-path:        "../../../../node_modules/font-awesome/fonts";

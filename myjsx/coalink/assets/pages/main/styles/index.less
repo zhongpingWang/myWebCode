@@ -1,0 +1,154 @@
+@import '../../../styles/variables';
+@import '../../../styles/flat/mixins';
+//@import "../../../../../node_modules/bootstrap/less/forms";
+
+/* 头部 */
+.headerBox{
+  height:480px;border-bottom: 1px #ccc solid;
+  &.with-video {
+	position: relative;
+	padding: 0;
+	overflow: hidden;
+	video {
+	  position: absolute;
+	  width: 100%;
+	  display: block;
+	}
+  }
+  .topBarBox{  background-color: rgba(20,102,193,0.4);position: relative;
+	.topBar{
+	  width:1000px;
+	  margin:0 auto;
+	  height: 70px;
+	  .mTop{margin-top: 36px;}
+	  .logo{font-size: 26px;color:#fff;line-height: 70px;}
+	  /* 发布我的需求 */
+	  .myRelease{
+		width: 120px;
+		height: 29px;
+		color: #fff;
+		background-color: #ff7043;
+		text-align: center;
+		line-height: 29px;
+		margin-top: 28px;
+	  }
+	  /* 帮助 */
+	  .help{
+		.arrorwDown{
+		  border: 7px transparent solid;
+		  border-top-color: #fff;
+		  display: inline-block;
+		  vertical-align: top;
+		  padding: 0px;
+		  margin: 6px 34px 0px 0px;
+		}
+	  }
+	  .signIn{margin:36px 15px 0px;}
+	}
+  }
+  .numberTransactions{
+	position: relative;
+	margin-top: 130px;
+	margin-bottom: 80px;
+	text-align: center;
+	color: #fff;
+    overflow: hidden;
+    width:100%;
+	.tipText{font-size: 43px;margin-right: 5px;}
+	.unit{font-size: 52px;margin-left: 5px;}
+	.number{font-size: 58px;}
+	.numberBox{display: inline-block;}
+    .slides{  width: 100%;white-space: nowrap;
+			li{  display: inline-block;width: 100%;
+				.msgText{  font-size: 43px;font-weight: bold;}
+			}
+		}
+  }
+
+  #searchBox{  width: 694px; margin: 0 auto;position: relative;}
+}
+
+#searchBox{
+  .tab-panels {margin-top: -9px;}
+  .search-input-box{clear:both; width: 100%; background-color: #00cccc; float: left; margin-right: 100px; margin-top: -10px; padding: 10px;
+	input {border:none; border-left: 1px solid @fontSizeP4; padding: 5px 10px; outline: 0; line-height: 20px; width: 180px; font-size: @fontSize3;
+	  &:first-child{border-left: none;}
+	}
+  }
+  .search-submit {color: @fontColor12; background-color: #00cccc; margin: -50px -10px 0 0; padding: 0 20px; font-size: 16px;line-height: 50px; float: right; cursor: pointer;
+	&:hover {color: @fontColor10;}
+  }
+}
+/* 最新动态  */;
+.newNotice{ height: 60px;color:#656565;text-align: center;line-height: 60px;overflow: hidden;
+  .msgText{
+	padding-left: 30px;
+	background: url(../images/msgIcon.png) no-repeat 0px;
+	color:#424242;
+	padding-top: 2px;
+	a{color:#20a3e4;margin-left: 5px;}
+  }
+}
+
+/* 菜单  */
+.menuBox{height:58px;border:1px #e0e0e0 solid; border-left:0;border-right:0;line-height: 58px;
+  .menu{width: 1000px;margin: 0 auto;color:#424242;
+	li{float:left;width:249px;border-right:1px #e0e0e0 solid;text-align: center;
+	  .icon{display: inline-block;  height: 22px;width: 31px;vertical-align: top;margin-top: 18px;}
+	}
+	.tradingHall .icon{background: url(../images/menu.png) no-repeat 0px -1px; }
+	.marketChart .icon{background: url(../images/menu.png) no-repeat 0px -22px; }
+	.fundManagement .icon{background: url(../images/menu.png) no-repeat 0px -43px; }
+	.service .icon{background: url(../images/menu.png) no-repeat 0px -64px; }
+  }
+}
+
+.aboutBox{text-align: center;padding-top: 50px;
+  .aboutLink{width:1000px;margin:0 auto;height:310px;margin-top: 35px;
+	li{float:left;width:249px;
+	  a{width:234px;height: 130px;display: block;margin-bottom: 12px;
+		.icon{width:100%;height: 76px;display: inline-block;margin-top:34px;}
+	  }
+	  a:hover{background-color: #eaeaea;}
+	}
+	.professional{
+	  .icon{background: url(../images/about.png) no-repeat 90px -2px;}
+	}
+	.efficient{
+	  .icon{background: url(../images/about.png) no-repeat 90px -157px;}
+	}
+	.safety{
+	  .icon{background: url(../images/about.png) no-repeat 90px -2px;}
+	}
+	.security{
+	  .icon{background: url(../images/about.png) no-repeat 90px -79px;}
+	}
+  }
+}
+
+/* 交易大厅 */
+.tradingHallBox,.chat,.fundManagementBig,.servicesBig{width:100%;height:460px; background:#fff url('../images/tradingHall.png') no-repeat;
+  border: 1px transparent solid;position: relative;
+}
+.chat{background-image: url('../images/chat.png');background-size: 100%;}
+.fundManagementBig{background-image: url('../images/fundManagement.jpg');}
+.servicesBig{background-image: url('../images/servicesBig.jpg');background-size: 100%;}
+.descBox{position: absolute;right:12%;width:300px;margin-top: 180px;color:#424242;
+  .subtitle{color:#5a5a5a;}
+  .btn {
+	width: 120px;
+  }
+}
+.footerlink>li{float:left;width:240px;padding-left: 52px;border-right:1px #eaeaea solid;height:160px; }
+.footerlink>li.last{border:0;}
+.footerlink{width:1000px;margin:0 auto;  padding-top: 100px;height:290px;
+  .linkBox{
+	.sina{width:38px;height:38px;display: inline-block;background: url('../images/sina.jpg') no-repeat;}
+	.webChat{width:38px;height:38px;display: inline-block;background: url('../images/webChat.jpg') no-repeat;margin-left:10px;}
+  }
+  h4{margin-bottom: 14px;}
+  a{color:#303030;font-size: 12px;  margin-bottom: 10px;display: inline-block;}
+}
+.company{height:88px;background-color: #e6e6e6;line-height: 88px;color:#575757;
+  .companyContent{width:1000px;margin:0 auto;}
+}

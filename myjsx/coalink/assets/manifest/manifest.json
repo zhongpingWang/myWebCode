@@ -1,0 +1,22 @@
+{
+	"assets": {
+		"pages/main/video/banner.mp4": "video/banner-908facbe7b.mp4",
+		"pages/main/images/banner.jpg": "imgs/banner-3d641ea815d769cda65316b96f18128c.jpg",
+		"pages/main/images/about.png": "imgs/about-518f65e36cd5f5165d8ec234e2aae6eb.png",
+		"pages/main/images/chat.png": "imgs/chat-598cf035bd2b1e430637f69cc84e764c.png",
+		"pages/main/images/fundManagement.jpg": "imgs/fundManagement-d258bcca92186546a811cf819894e59e.jpg",
+		"pages/main/images/menu.png": "imgs/menu-efa4693cd7098a50c2cf96a66fab1419.png",
+		"pages/main/images/msgIcon.png": "imgs/msgIcon-4f6045cfa8445bf15c505177c5c06ced.png",
+		"pages/main/images/servicesBig.jpg": "imgs/servicesBig-8968626791c09385232977313beb81dc.jpg",
+		"pages/main/images/sina.jpg": "imgs/sina-796d75bd4e5f59fe42cc6e6293a27d9d.jpg",
+		"pages/main/images/tradingHall.png": "imgs/tradingHall-9a074ff786d334bfce8770b76b03d876.png",
+		"pages/main/images/webChat.jpg": "imgs/webChat-844bf0c43d2f4e41e4be187b7d6cde9a.jpg",
+		"commons.js": "commons-5ebc6c14f7eaa25c86b9.js",
+		"main.js": "main-faa9d8a037f688eabb42.js",
+		"base.css": "base-c0f244db5a76b2433094b2f86dd0643d.css",
+		"maincss.css": "maincss-50dfd686ef0526d3a03b10e08867272c.css",
+		"admincss.css": "admincss-d41d8cd98f00b204e9800998ecf8427e.css",
+		"admin.js": "admin-c87cee50095bdb154643.js"
+	},
+	"publicPath": "/static/"
+}

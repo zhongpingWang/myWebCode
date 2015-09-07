@@ -76,27 +76,28 @@ var CookBookHeader=React.createClass({
 	},
 
 
-	slideShow:function(event){
-		var $li=$(event.target).parent(),$ul=$li.find("ul");
-		if ($ul.is(":ani")) {};
+	slideShow:function(type){
+		//var $li=$(event.target).parent(),$ul=$li.find("ul");
+		 
+		console.log(type);
 	},
 	render:function(){
 	 	
 	 	console.log(this.slideShow);
-
+	 	var self=this;
 		var item;
 		if ( this.state.data && this.state.data.result && this.state.data.result.length>0 ) {
 
 			item=this.state.data.result.map(function(result){
 				return (
-					   <li className="item x" onClick={this.slideShow} data-parent-id={result.parentId}>
+					   <li className="item x" onClick={self.slideShow(this)} data-parent-id={result.parentId}>
 
 					   <span className="cookCategory cookText">{result.name}</span>
 
 					   <CookBookHeaderList list={result.list} />
 
 					   </li>);
-	        }.bind(this)); 
+	        }.bind(self)); 
 
 		}else{
 			item=(<li>数据加载中……</li>);
@@ -135,7 +136,7 @@ var CookBookHeaderList=React.createClass({
 				return (<li className="subItem" data-parentId={item.parentId} >
 							<span  className="cookItem cookText" onClick={this.handleGetBookDetail} >{item.name}</span>
 						</li>);
-			});
+			}.bind(this));
 		}else{
 			list=(<li>暂无数据</li>);
 		}  

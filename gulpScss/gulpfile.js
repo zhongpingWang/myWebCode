@@ -36,11 +36,22 @@ gulp.task('a', function () {
 
 // 默认任务
 gulp.task('default', function () {
-    gulp.run('sass');
+  
     // 监听文件变化
-    gulp.watch('./SCSS/*.scss', function () {
-        gulp.run('sass');
+    gulp.watch('./sassTest/**/*.scss', function () {
+        gulp.run('build');
     });
+});
+
+
+
+gulp.task('build', function () {
+    return gulp.src(SRC)
+        .pipe(changed(DEST))
+        // ngAnnotate will only get the files that
+        // changed since the last time it was run
+        .pipe(ngAnnotate())
+        .pipe(gulp.dest(DEST));
 });
 
 
